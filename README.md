@@ -1,4 +1,4 @@
-## Contains Project WebRep v1.0
+## Contains Project WebRep v3.0
 ## Currently configured only for LINUX
 
 ## Prereqs ~ Python3
@@ -14,5 +14,9 @@
 5. ./webrep.py
 
 ## For Quick Mode
-1. chmod +x ./wrquick.py
-2. ./wrquick.py
+1. Already inytegrated (No custom execution required)
+
+## FOR WINDOWS ***
+1. git clone the repo
+2. open a terminal in the resulting folder
+3. run webrep.bat
