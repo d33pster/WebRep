@@ -28,7 +28,7 @@ def main():
       if(dec == 1):
           subprocess.call(['sh','./win_redirect_quick.sh'])  
       elif(dec == 2):
-          subprocess.call(['sh','./win_redirect.ps1'])
+          subprocess.call(['sh','./win_redirect.sh'])
       elif(dec == 0):
           return
       else:
