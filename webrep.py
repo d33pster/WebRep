@@ -24,7 +24,7 @@ def main():
         main()
   elif(P == 'Windows'):
       print("Press 1 for quick :: Press 2 for default :: Press 0 to exit")
-      dec = input(":: ")
+      dec = int(input(":: "))
       if(dec == 1):
           subprocess.call(['./win_redirect_quick.ps1'])  
       elif():
