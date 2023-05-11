@@ -26,9 +26,9 @@ def main():
       print("Press 1 for quick :: Press 2 for default :: Press 0 to exit")
       dec = int(input(":: "))
       if(dec == 1):
-          subprocess.call(['./win_redirect_quick.ps1'])  
+          subprocess.call(['sh','./win_redirect_quick.sh'])  
       elif():
-          subprocess.call(['./win_redirect.ps1'])
+          subprocess.call(['sh','./win_redirect.ps1'])
       elif(dec == 0):
           return
       else:
