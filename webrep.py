@@ -12,6 +12,7 @@ def reader(file_name):
     print("\n")
     print(file.read())
     file.close()
+    code_choke = input("\n\n~ PRESS ENTER TO CONTINUE ~")
     return
 
 
@@ -38,6 +39,15 @@ def fetch():
                 load_output_file = open("./output-files/"+output_file_name+".rep", "a")
                 load_output_file.write(item+" : "+value+"\n\n")
                 load_output_file.close()
+            cookies = tuple(req.cookies)
+            load_output_file = open("./output-files/"+output_file_name+".rep", "a")
+            load_output_file.write("\n\nCOOKIES: \n")
+            load_output_file.close()
+            for i in range(len(cookies)):
+                load_output_file = open("./output-files/"+output_file_name+".rep", "a")
+                load_output_file.write(cookies[i])
+                load_output_file.write("\n")
+                load_output_file.close()
     elif(decider == 0):
         url = input("Enter URL: ")
         output_file_name = input("Enter Output file-name: ")
@@ -56,11 +66,29 @@ def fetch():
             load_output_file = open("./output-files/"+output_file_name+".rep", "a")
             load_output_file.write(item+" : "+value+"\n\n")
             load_output_file.close()
+        cookies = tuple(req.cookies)
+        load_output_file = open("./output-files/"+output_file_name+".rep", "a")
+        load_output_file.write("\n\nCOOKIES: \n")
+        load_output_file.close()
+        for i in range(len(cookies)):
+            load_output_file = open("./output-files/"+output_file_name+".rep", "a")
+            load_output_file.write(cookies[i])
+            load_output_file.write("\n")
+            load_output_file.close
     else:
         print("Invalid Input!")
         print("Restarting...")
         time.sleep(1)
         fetch()
+    return output_file_name
+
+def fetch_read(output_file_name):
+    print("\n")
+    decider = int(input("Press 1 to view Footprint :: press 0 to reconfigure: "))
+    if(decider == 1):
+        reader(output_file_name)
+    elif(decider == 0):
+        return
     return
             
 def main():
@@ -68,14 +96,14 @@ def main():
     subprocess.call(['sh', './logo.sh'])
     decider = int(input("Press 1 to Diagnose :: Press 0 to browse existing report :: Press 10 to enter file-name: "))
     if(decider == 1):
-        fetch()
+        fetch_read_input = fetch()
+        fetch_read(fetch_read_input)
         print("\n\nRECONFIGURING ...")
         time.sleep(2)
         main()
     elif(decider == 10):
         file_name = input("file-name: ")
         reader(file_name)
-        code_choke = input("\n\n~ PRESS ENTER TO CONTINUE ~")
         print("\n\nRECONFIGURING ...")
         time.sleep(2)
         main()
@@ -85,7 +113,6 @@ def main():
         print("\n")
         file_name = input("file to read: ")
         reader(file_name)
-        code_choke = input("\n\n~ PRESS ENTER TO CONTINUE ~")
         print("\n\nRECONFIGURING ...")
         time.sleep(2)
         main()
