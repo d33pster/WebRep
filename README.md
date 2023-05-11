@@ -6,6 +6,10 @@
 ## Instructions ~
 1. git clone the repo
 2. run the following commands in the terminal:
-  a. cd WebRep
-  b. chmod +x webrep.py
-  c. ./webrep.py
+3. cd WebRep - <version>
+4. chmod +x ./webrep.py
+5. ./webrep.py
+
+## For Quick Mode
+1. chmod +x ./wrquick.py
+2. ./wrquick.py

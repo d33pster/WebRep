@@ -2,9 +2,10 @@
 import subprocess
 import requests
 import time
+import initial_check
 
 #Checking and installing prereqs:
-subprocess.call(['sh', './webrep.init.sh'])
+initial_check.init_check()
 
 #Functions:
 def reader(file_name):
@@ -30,7 +31,7 @@ def fetch():
             create_output_file.close()
             req = requests.get(url)
             res = dict(req.headers)
-            print("Fetching Report(s) ... ")
+            print("Fetching Footprint(s) ... ")
             time.sleep(3)
             print("\n")
             print("Saving into /output-files/"+output_file_name+".rep ...")
@@ -45,7 +46,7 @@ def fetch():
             load_output_file.close()
             for i in range(len(cookies)):
                 load_output_file = open("./output-files/"+output_file_name+".rep", "a")
-                load_output_file.write(cookies[i])
+                load_output_file.write(str(cookies[i]))
                 load_output_file.write("\n")
                 load_output_file.close()
     elif(decider == 0):
@@ -57,7 +58,7 @@ def fetch():
         create_output_file.close()
         req = requests.get(url)
         res = dict(req.headers)
-        print("Fetching Report ...")
+        print("Fetching Footprint ...")
         time.sleep(2)
         print("\n")
         print("Saving into /output-files/"+output_file_name+".rep ...")
@@ -72,7 +73,7 @@ def fetch():
         load_output_file.close()
         for i in range(len(cookies)):
             load_output_file = open("./output-files/"+output_file_name+".rep", "a")
-            load_output_file.write(cookies[i])
+            load_output_file.write(str(cookies[i]))
             load_output_file.write("\n")
             load_output_file.close
     else:
@@ -91,7 +92,7 @@ def fetch_read(output_file_name):
         return
     return
             
-def main():
+def driver():
     print("\n\n")
     subprocess.call(['sh', './logo.sh'])
     decider = int(input("Press 1 to Diagnose :: Press 0 to browse existing report :: Press 10 to enter file-name: "))
@@ -100,13 +101,13 @@ def main():
         fetch_read(fetch_read_input)
         print("\n\nRECONFIGURING ...")
         time.sleep(2)
-        main()
+        driver()
     elif(decider == 10):
         file_name = input("file-name: ")
         reader(file_name)
         print("\n\nRECONFIGURING ...")
         time.sleep(2)
-        main()
+        driver()
     elif(decider == 0):
         print("\nThe Output Directory has the following files: ")
         subprocess.call(['sh', './browse.sh'])
@@ -115,15 +116,15 @@ def main():
         reader(file_name)
         print("\n\nRECONFIGURING ...")
         time.sleep(2)
-        main()
+        driver()
     else:
         print("Input Error! ~ Custom Exit Code 1")
         print("Restarting ...")
         time.sleep(2)
-        main()
+        driver()
     return
 
 
 
 #Driver:
-main()
+driver()
