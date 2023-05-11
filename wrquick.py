@@ -13,7 +13,10 @@ def main():
   subprocess.call(['sh', './logo.sh'])
 
   #Footprint
+  print("Press Q to quit\n")
   url = input("Url: ")
+  if(url.strip() == "Q" or url.strip() == "q"):
+      return
   output_file_name = input("output file-name: ")
   req_t = requests.get(url)
   req = dict(req_t.headers)

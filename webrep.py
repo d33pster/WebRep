@@ -96,7 +96,9 @@ def fetch_read(output_file_name):
 def driver():
     print("\n\n")
     subprocess.call(['sh', './logo.sh'])
-    decider = int(input("Press 1 to Diagnose :: Press 0 to browse existing report :: Press 10 to enter file-name: "))
+    print("Press 1 to Diagnose :: Press 2 to browse existing report ")
+    print("Press 10 to enter file-name :: Press 00 to EXIT")
+    decider = int(input(":: "))
     if(decider == 1):
         fetch_read_input = fetch()
         fetch_read(fetch_read_input)
@@ -109,7 +111,7 @@ def driver():
         print("\n\nRECONFIGURING ...")
         time.sleep(2)
         driver()
-    elif(decider == 0):
+    elif(decider == 2):
         print("\nThe Output Directory has the following files: ")
         subprocess.call(['sh', './browse.sh'])
         print("\n")
@@ -125,6 +127,8 @@ def driver():
             print("\n\nRECONFIGURING ...")
             time.sleep(2)
             driver()
+    elif(decider == 0):
+        return
     else:
         print("Input Error! ~ Custom Exit Code 1")
         print("Restarting ...")
