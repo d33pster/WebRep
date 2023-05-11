@@ -3,6 +3,7 @@ import subprocess
 import requests
 import time
 import initial_check
+import os
 
 #Checking and installing prereqs:
 initial_check.init_check()
@@ -113,10 +114,17 @@ def driver():
         subprocess.call(['sh', './browse.sh'])
         print("\n")
         file_name = input("file to read: ")
-        reader(file_name)
-        print("\n\nRECONFIGURING ...")
-        time.sleep(2)
-        driver()
+        if (os.path.exists(os.path.join(os.getcwd(),"output-files/"+file_name+".rep")) == False):
+            print("File Not Found! ")
+            time.sleep(1)
+            print("\nRECONFIGGURING ...")
+            time.sleep(2)
+            driver()
+        else:
+            reader(file_name)
+            print("\n\nRECONFIGURING ...")
+            time.sleep(2)
+            driver()
     else:
         print("Input Error! ~ Custom Exit Code 1")
         print("Restarting ...")

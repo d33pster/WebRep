@@ -3,6 +3,9 @@
 
 ## Prereqs ~ Python3
 
+## Important ~
+1. Need to be in WebRep directory to run
+
 ## Instructions ~
 1. git clone the repo
 2. run the following commands in the terminal:
