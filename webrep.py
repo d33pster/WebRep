@@ -36,7 +36,7 @@ def fetch():
             time.sleep(2)
             for item, value in res.items():
                 load_output_file = open("./output-files/"+output_file_name+".rep", "a")
-                load_output_file.write(item+" : "+value+"\n")
+                load_output_file.write(item+" : "+value+"\n\n")
                 load_output_file.close()
     elif(decider == 0):
         url = input("Enter URL: ")
@@ -54,7 +54,7 @@ def fetch():
         time.sleep(2)
         for item, value in res.items():
             load_output_file = open("./output-files/"+output_file_name+".rep", "a")
-            load_output_file.write(item+" : "+value+"\n")
+            load_output_file.write(item+" : "+value+"\n\n")
             load_output_file.close()
     else:
         print("Invalid Input!")
