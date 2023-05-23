@@ -23,3 +23,8 @@
 4. If already on the WebRep folder press Y/y
 5. if not just press n/N 
 
+## Windows Installers
+1. Create a Desktop folder named WebRep (Strictly)
+2. Download the installer from the folder
+3. Install in that folder
+4. follow Windows instructions afterwards
