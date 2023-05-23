@@ -5,7 +5,20 @@ import time
 import subprocess
 import os
 
+
 P = platform.system()
+
+def path_resolver(cwd):
+    if(os.path.exists(os.getcwd()+"\\Desktop")):
+        PROGPATH = os.getcwd()+"\\Desktop\\WebRep\\windows.py"
+    elif(os.path.exists(os.getcwd()+"\\OneDrive\\Desktop")):
+        PROGPATH = os.getcwd()+"\\OneDrive\\Desktop\\Webrep\\windows.py"
+    else:
+        print("Failed to Process Desktop Location..\n")
+        PROGPATH = input("Enter Manually: (example: path\\to\\desktop\\Desktop)")
+        PROGPATH = PROGPATH + "\\WebRep\\windows.py"
+    return PROGPATH
+
 def main():
   if(P == 'Linux'):
     print("Press 1 for quick :: Press 2 for default :: Press 0 to exit")
@@ -25,33 +38,26 @@ def main():
         main()
   elif(P == 'Windows'):
       caller = subprocess.call("cls", shell=True)
-      PROGPATH = os.getcwd()+"\\Desktop\\WebRep"
-      print("Press 1 for quick :: Press 2 for default :: Press 0 to exit")
+      if(os.environ["HOMEPATH"] == os.getcwd()):
+          PROGPATH = path_resolver(os.environ["HOMEPATH"])
+      else:
+            print("Are You already in the WEBREP directory?(y/n) ")
+            choice = input(":: ")
+            if(choice=="y" or choice=="Y"):
+                PROGPATH = "windows.py"
+            elif(choice=="n" or choice=="N"):
+                os.chdir(os.environ["HOMEPATH"])
+                PROGPATH = path_resolver(os.getcwd())
+            else:
+                print("Invalid Input!\n")
+                time.sleep(1)
+                print("RECONFIGURING ...")
+                time.sleep(2)
+                main()
+      print("Press 1 to RUN :: Press 0 to exit")
       dec = int(input(":: "))
       if(dec == 1):
-          CALLPATH_quick = " "
-          if(os.path.exists(PROGPATH)):
-              CALLPATH_quick = "python3 " + PROGPATH + "\\windows_q.py"
-          else:
-              CALLPATH_quic = os.getcwd() + "\\OneDrive\\Desktop\\WebRep\\windows_q.py"
-              CALLPATH_quick = "python3 " + CALLPATH_quic
-              if(os.path.exists(CALLPATH_quic)==False):
-                  PROGPATH = input("Failed to Process Directory\n Enter Directory manually: ")
-                  CALLPATH_quic = "python3 " + PROGPATH 
-                  CALLPATH_quick = CALLPATH_quic + "\\windows_q.py"
-          subprocess.run(CALLPATH_quick, shell=True)  
-      elif(dec == 2):
-          CALLPATH_def = " "
-          if(os.path.exists(PROGPATH)):
-              CALLPATH_def = "python3 " + PROGPATH + "\\windows.py"
-          else:
-              CALLPATH_d = os.getcwd() + "\\OneDrive\\Desktop\\WebRep\\windows.py"
-              CALLPATH_def = "python3 " + CALLPATH_d
-              if(os.path.exists(CALLPATH_d)==False):
-                  PROGPATH = input("Failed to Process Directory\n Enter Directory manually: ")
-                  CALLPATH_d = "python3 " + PROGPATH
-                  CALLPATH_def = "python3 "+CALLPATH_d + "\\windows.py"
-          subprocess.call(CALLPATH_def, shell=True)
+          caller = subprocess.run(["python", PROGPATH], shell=True)
       elif(dec == 0):
           return
       else:

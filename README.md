@@ -1,5 +1,5 @@
-## Contains Project WebRep v3.0
-## Currently configured only for LINUX
+## Contains Project WebRep v4.0
+## Currently configured for LINUX and WINDOWS
 
 ## Prereqs ~ Python3
 
@@ -14,9 +14,12 @@
 5. ./webrep.py
 
 ## For Quick Mode
-1. Already inytegrated (No custom execution required)
+1. Already inytegrated (No custom execution required) (FOR LINUX ONLY)
 
 ## FOR WINDOWS ***
-1. git clone the repo
-2. open a terminal in the resulting folder
-3. run webrep.bat
+1. Install Python3+ and uninstall any lower versions
+2. git clone the repo in DESKTOP (IMPORTANT)
+3. In cmd type ~ python PATH/to/WEBREP/webrep.py or go to the folder WebRep and run webrep.py
+4. If already on the WebRep folder press Y/y
+5. if not just press n/N 
+
