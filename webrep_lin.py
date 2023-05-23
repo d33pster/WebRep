@@ -94,7 +94,7 @@ def fetch_read(output_file_name):
     return
             
 def driver():
-    print("\n\n")
+    subprocess.call('sh', 'clear')
     subprocess.call(['sh', './logo.sh'])
     print("Press 1 to Diagnose :: Press 2 to browse existing report ")
     print("Press 10 to enter file-name :: Press 00 to EXIT")

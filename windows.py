@@ -14,14 +14,14 @@ if(os.path.exists(ch_dir)):
         caller = subprocess.run(["cd", "Desktop\\webrep"], shell=True)
         os.chdir(ch_dir)
         os.mkdir("output-files")
-        caller = subprocess.run(["Git", "-C", ch_dir, "pull", "https://www.github.com/d33pster/WebRep.git"], shell=True)
+    caller = subprocess.run(["Git", "-C", ch_dir, "pull", "https://www.github.com/d33pster/WebRep.git"], shell=True)
 elif(os.path.exists(ch_dir) == False):
     ch_dir = os.path.join(os.environ["HOMEPATH"], "OneDrive\\Desktop\\WebRep")
     if(os.path.exists(ch_dir+"\\output-files") == False):
         caller = subprocess.run(["cd", "onedrive\\desktop\\webrep"], shell=True)
         os.chdir(ch_dir)
         os.mkdir("output-files")
-        caller = subprocess.run(["Git", "-C", ch_dir, "pull", "https://www.github.com/d33pster/WebRep.git"], shell=True)
+    caller = subprocess.run(["Git", "-C", ch_dir, "pull", "https://www.github.com/d33pster/WebRep.git"], shell=True)
 else:
     print("Cannot Resolve Desktop Path ... \n")
     ch_dir = input("Enter Path to Desktop: (example: path\\to\\desktop\\Desktop)")
@@ -30,7 +30,8 @@ else:
         caller = subprocess.run(["cd", ch_dir], shell=True)
         os.chdir(ch_dir)
         os.mkdir("output-files")
-        caller = subprocess.run(["Git", "-C", ch_dir, "pull", "https://www.github.com/d33pster/WebRep.git"], shell=True)
+        
+    caller = subprocess.run(["Git", "pull", "https://www.github.com/d33pster/WebRep.git"], shell=True)
 
 
 import requests

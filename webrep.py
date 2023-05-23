@@ -9,10 +9,10 @@ import os
 P = platform.system()
 
 def path_resolver(cwd):
-    if(os.path.exists(os.getcwd()+"\\Desktop")):
-        PROGPATH = os.getcwd()+"\\Desktop\\WebRep\\windows.py"
-    elif(os.path.exists(os.getcwd()+"\\OneDrive\\Desktop")):
-        PROGPATH = os.getcwd()+"\\OneDrive\\Desktop\\Webrep\\windows.py"
+    if(os.path.exists(cwd+"\\Desktop")):
+        PROGPATH = cwd+"\\Desktop\\WebRep\\windows.py"
+    elif(os.path.exists(cwd+"\\OneDrive\\Desktop")):
+        PROGPATH = cwd+"\\OneDrive\\Desktop\\Webrep\\windows.py"
     else:
         print("Failed to Process Desktop Location..\n")
         PROGPATH = input("Enter Manually: (example: path\\to\\desktop\\Desktop)")
@@ -45,6 +45,12 @@ def main():
             choice = input(":: ")
             if(choice=="y" or choice=="Y"):
                 PROGPATH = "windows.py"
+                if (os.path.exists(os.getcwd()+"\\output-files")==False):
+                    print("Error in resolving directory path...\n Reconfiguring..")
+                    time.sleep(1)
+                    print("Reconfigure Successful ...")
+                    time.sleep(1)
+                    PROGPATH = path_resolver(os.environ["HOMEPATH"])
             elif(choice=="n" or choice=="N"):
                 os.chdir(os.environ["HOMEPATH"])
                 PROGPATH = path_resolver(os.getcwd())
