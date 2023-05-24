@@ -14,6 +14,6 @@ echo "
 "
 echo "Author: d33pster/deep"
 echo "email: deep.main.ac@gmail.com"
-echo "v4.1"
+echo "v4.2"
 echo " "
 

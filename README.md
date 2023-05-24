@@ -1,4 +1,4 @@
-## Contains Project WebRep v4.1
+## Contains Project WebRep v4.2
 ## Currently configured for LINUX and WINDOWS
 
 ## Prereqs ~ Python3
@@ -19,12 +19,10 @@
 ## FOR WINDOWS ***
 1. Install Python3+ and uninstall any lower versions
 2. git clone the repo in DESKTOP (IMPORTANT)
-3. In cmd type ~ python PATH/to/WEBREP/webrep.py or go to the folder WebRep and run webrep.py
-4. If already on the WebRep folder press Y/y
-5. if not just press n/N 
+3. Run WebRep.exe
 
 ## Windows Installers
-1. Create a Desktop folder named WebRep (Strictly)
+1. Create a Desktop folder named WebRep (Strictly no version name or anything else) (Case Sensitive)
 2. Download the installer from the folder
 3. Install in that folder
-4. follow Windows instructions afterwards
+4. run WebRep.exe
