@@ -3,6 +3,9 @@
 
 ## Prereqs ~ Python3
 
+## FOR WINDOWS INSTALLERS
+1. for version 4.2 and plus, after extracting rename folder to WebRep
+
 ## Important ~
 1. Need to be in WebRep directory to run
 

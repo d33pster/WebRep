@@ -10,13 +10,13 @@ P = platform.system()
 
 def path_resolver(cwd):
     if(os.path.exists(cwd+"\\Desktop")):
-        PROGPATH = cwd+"\\Desktop\\WebRep\\windows.py"
+        PROGPATH = cwd+"\\Desktop\\WebRep\\main\\windows.py"
     elif(os.path.exists(cwd+"\\OneDrive\\Desktop")):
-        PROGPATH = cwd+"\\OneDrive\\Desktop\\Webrep\\windows.py"
+        PROGPATH = cwd+"\\OneDrive\\Desktop\\Webrep\\main\\windows.py"
     else:
         print("Failed to Process Desktop Location..\n")
-        PROGPATH = input("Enter Manually: (example: path\\to\\desktop\\Desktop)")
-        PROGPATH = PROGPATH + "\\WebRep\\windows.py"
+        PROGPATH = input("Enter Manually: (example: path\\to\\desktop\\Desktop)\n:: ")
+        PROGPATH = PROGPATH + "\\WebRep\\main\\windows.py"
     return PROGPATH
 
 def main():
@@ -24,9 +24,9 @@ def main():
     print("Press 1 for quick :: Press 2 for default :: Press 0 to exit")
     dec = int(input(":: "))
     if(dec == 1):
-        subprocess.call(['./wrquick_lin.py'])
+        subprocess.call(['./main/wrquick_lin.py'])
     elif(dec == 2):
-        subprocess.call(['./webrep_lin.py'])
+        subprocess.call(['./main/webrep_lin.py'])
     elif(dec == 0):
         return
     else:
@@ -44,7 +44,7 @@ def main():
             print("Are You already in the WEBREP directory?(y/n) ")
             choice = input(":: ")
             if(choice=="y" or choice=="Y"):
-                PROGPATH = "windows.py"
+                PROGPATH = "main\\windows.py"
                 if (os.path.exists(os.getcwd()+"\\output-files")==False):
                     print("Error in resolving directory path...\n Reconfiguring..")
                     time.sleep(1)

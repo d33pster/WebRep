@@ -124,7 +124,7 @@ def fetch_read(output_file_name):
 def driver():
     print("\n")
     caller = subprocess.run("cls", shell=True)
-    logo = open(ch_dir+"\\logo.txt", "r")
+    logo = open(ch_dir+"\\main\\logo.txt", "r")
     print(logo.readline())
     logo.close()
     print("\n")

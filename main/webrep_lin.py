@@ -95,7 +95,7 @@ def fetch_read(output_file_name):
             
 def driver():
     subprocess.call('sh', 'clear')
-    subprocess.call(['sh', './logo.sh'])
+    subprocess.call(['sh', './main/logo.sh'])
     print("Press 1 to Diagnose :: Press 2 to browse existing report ")
     print("Press 10 to enter file-name :: Press 00 to EXIT")
     decider = int(input(":: "))
@@ -113,7 +113,7 @@ def driver():
         driver()
     elif(decider == 2):
         print("\nThe Output Directory has the following files: ")
-        subprocess.call(['sh', './browse.sh'])
+        subprocess.call(['sh', './main/browse.sh'])
         print("\n")
         file_name = input("file to read: ")
         if (os.path.exists(os.path.join(os.getcwd(),"output-files/"+file_name+".rep")) == False):

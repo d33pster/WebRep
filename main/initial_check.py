@@ -3,4 +3,4 @@
 import subprocess
 
 def init_check():
-    subprocess.call(['sh', './webrep.init.sh'])
+    subprocess.call(['sh', './main/webrep.init.sh'])
