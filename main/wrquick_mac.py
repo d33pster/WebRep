@@ -3,27 +3,36 @@
 import subprocess
 import os
 import time
-import initial_check
+import initCheckMac
 
 #Checking and installing prereqs:
-initial_check.init_check()
+initCheckMac.init_check()
 import requests
 
+directory = os.path.dirname(os.path.abspath(__file__)) #getting current dire /main
+directory_outMain = os.path.dirname(directory) #getting dir after cd = /WebRep
+
 def main():
+  global directory, directory_outMain
   os.system("clear")
   #Logo
-  subprocess.call(['sh', './main/logo.sh'])
-
+  
+  os.chdir(directory)
+  caller = subprocess.call(['sh', './logo.sh'])
   #Footprint
   print("Press Q to quit\n")
   url = input("Url: ")
   if(url.strip() == "Q" or url.strip() == "q"):
+      os.system("clear")
       return
   output_file_name = input("output file-name: ")
   req_t = requests.get(url)
   req = dict(req_t.headers)
 
-  create_output_file = open("./output-files/"+output_file_name+".rep", "w")
+  
+  os.chdir(directory_outMain)
+
+  create_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "w")
   create_output_file.write("Footprint of "+url+" Webserver: \n\n")
   create_output_file.close
 
@@ -33,8 +42,10 @@ def main():
   print("Saving into /output-files/"+output_file_name+".rep ...")
   time.sleep(2)
 
+  os.system("clear")
+
   for item, value in req.items():
-      load_output_file = open("./output-files/"+output_file_name+".rep", "a")
+      load_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "a")
       load_output_file.write(item+" : "+value+"\n\n")
       load_output_file.close()
 
@@ -42,19 +53,19 @@ def main():
   cookies_t = requests.get(url).cookies
   cookies = tuple(cookies_t)
 
-  load_output_file = open("./output-files/"+output_file_name+".rep", "a")
+  load_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "a")
   load_output_file.write("\n\nCOOKIES: \n")
   load_output_file.close()
 
   for i in range(len(cookies)):
-      load_output_file = open("./output-files/"+output_file_name+".rep", "a")
+      load_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "a")
       load_output_file.write(str(cookies[i]))
       load_output_file.write("\n")
       load_output_file.close()
 
   #reader with code choke
   def reader(file_name):
-      file = open("./output-files/"+file_name+".rep", "r")
+      file = open(os.path.join(directory_outMain, "output-files", file_name+".rep"), "r")
       print("\n")
       print(file.read())
       file.close()

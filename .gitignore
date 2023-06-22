@@ -3,3 +3,5 @@
 /dist
 /build
 /.idea
+webrep.spec
+.DS_Store

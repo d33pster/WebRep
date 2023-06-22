@@ -1,5 +1,5 @@
-## Contains Project WebRep v4.2
-## Currently configured for LINUX and WINDOWS
+## Contains Project WebRep v5.0
+## Currently configured for LINUX WINDOWS and macOS
 
 ## Prereqs ~ Python3
 
@@ -29,3 +29,8 @@
 2. Download the installer from the folder
 3. Install in that folder
 4. run WebRep.exe
+
+## MacOs Instructions
+1. git clone repo
+2. cd WebRep
+3. ./webrep.py

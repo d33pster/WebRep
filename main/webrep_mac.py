@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 import subprocess
 import time
-import initial_check
+import initCheckMac
 import os
 
 #Checking and installing prereqs:
-initial_check.init_check()
+initCheckMac.init_check()
 import requests
+
+directory = os.path.dirname(os.path.abspath(__file__)) #getting current dire /main
+directory_outMain = os.path.dirname(directory) #getting dir after cd = /WebRep
 
 #Functions:
 def reader(file_name):
-    file = open("./output-files/"+file_name+".rep", "r")
+    global directory_outMain
+    file = open(os.path.join(directory_outMain, "output-files", file_name+".rep"), "r")
     print("\n")
     print(file.read())
     file.close()
@@ -19,12 +23,13 @@ def reader(file_name):
 
 
 def fetch():
+    global directory_outMain
     print("\n\n")
     decider = int(input("Press 1 for URL file :: Press 0 to input manually: "))
     if(decider == 1):
         url_file = input("Enter absolute file-path: ")
         output_file_name = input("Enter Output file-name: ")
-        create_output_file = open("./output-files/"+output_file_name+".rep", "w")
+        create_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "w")
         urls = open(url_file, "r")
         for url in urls:
             url = url.strip()
@@ -38,22 +43,22 @@ def fetch():
             print("Saving into /output-files/"+output_file_name+".rep ...")
             time.sleep(2)
             for item, value in res.items():
-                load_output_file = open("./output-files/"+output_file_name+".rep", "a")
+                load_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "a")
                 load_output_file.write(item+" : "+value+"\n\n")
                 load_output_file.close()
             cookies = tuple(req.cookies)
-            load_output_file = open("./output-files/"+output_file_name+".rep", "a")
+            load_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "a")
             load_output_file.write("\n\nCOOKIES: \n")
             load_output_file.close()
             for i in range(len(cookies)):
-                load_output_file = open("./output-files/"+output_file_name+".rep", "a")
+                load_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "a")
                 load_output_file.write(str(cookies[i]))
                 load_output_file.write("\n")
                 load_output_file.close()
     elif(decider == 0):
         url = input("Enter URL: ")
         output_file_name = input("Enter Output file-name: ")
-        create_output_file = open("./output-files/"+output_file_name+".rep", "w")
+        create_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "w")
         url = url.strip()
         create_output_file.write("Footprint of "+url+" Webserver: \n\n")
         create_output_file.close()
@@ -65,15 +70,15 @@ def fetch():
         print("Saving into /output-files/"+output_file_name+".rep ...")
         time.sleep(2)
         for item, value in res.items():
-            load_output_file = open("./output-files/"+output_file_name+".rep", "a")
+            load_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "a")
             load_output_file.write(item+" : "+value+"\n\n")
             load_output_file.close()
         cookies = tuple(req.cookies)
-        load_output_file = open("./output-files/"+output_file_name+".rep", "a")
+        load_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "a")
         load_output_file.write("\n\nCOOKIES: \n")
         load_output_file.close()
         for i in range(len(cookies)):
-            load_output_file = open("./output-files/"+output_file_name+".rep", "a")
+            load_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "a")
             load_output_file.write(str(cookies[i]))
             load_output_file.write("\n")
             load_output_file.close
@@ -94,8 +99,10 @@ def fetch_read(output_file_name):
     return
             
 def driver():
-    subprocess.call('sh', 'clear')
-    subprocess.call(['sh', './main/logo.sh'])
+    global directory_outMain, directory
+    os.system('clear')
+    os.chdir(directory_outMain)
+    caller = subprocess.call(['sh', './main/logo.sh'])
     print("Press 1 to Diagnose :: Press 2 to browse existing report ")
     print("Press 10 to enter file-name :: Press 00 to EXIT")
     decider = int(input(":: "))
@@ -113,10 +120,12 @@ def driver():
         driver()
     elif(decider == 2):
         print("\nThe Output Directory has the following files: ")
-        subprocess.call(['sh', './main/browse.sh'])
+        os.chdir(os.path.join(directory_outMain, 'output-files'))
+        os.system("ls")
+        os.chdir(directory)
         print("\n")
         file_name = input("file to read: ")
-        if (os.path.exists(os.path.join(os.getcwd(),"output-files/"+file_name+".rep")) == False):
+        if (os.path.exists(os.path.join(directory_outMain,"output-files", file_name+".rep")) == False):
             print("File Not Found! ")
             time.sleep(1)
             print("\nRECONFIGGURING ...")

@@ -1,4 +1,5 @@
 #!/bin/sh
+clear
 echo "Checking ... "
 sleep 2
 
@@ -13,6 +14,5 @@ if [ ! -d "$Dir" ]; then
   mkdir output-files
 fi
 
-sudo apt install python3-pip -y
 python3 -m pip install --upgrade pip
 pip3 install requests

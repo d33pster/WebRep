@@ -5,7 +5,6 @@ import time
 import subprocess
 import os
 
-
 P = platform.system()
 
 def path_resolver(cwd):

@@ -5,6 +5,7 @@ import time
 import subprocess
 import os
 
+directory = os.path.dirname(os.path.abspath(__file__)) #getting current dire /main
 
 P = platform.system()
 
@@ -20,6 +21,7 @@ def path_resolver(cwd):
     return PROGPATH
 
 def main():
+  global directory
   if(P == 'Linux'):
     print("Press 1 for quick :: Press 2 for default :: Press 0 to exit")
     dec = int(input(":: "))
@@ -65,6 +67,27 @@ def main():
       if(dec == 1):
           caller = subprocess.run(["python", PROGPATH], shell=True)
       elif(dec == 0):
+          return
+      else:
+          print("Invalid Input!\n")
+          time.sleep(1)
+          print("RECONFIGURING ...")
+          time.sleep(2)
+          main()
+  elif P=='Darwin':
+      os.system("clear")
+      print("Press 1 for quick :: Press 2 for default :: Press 0 to exit")
+      choice = int(input(":: "))
+      if choice==1:
+          ch1_dir = os.path.join(directory, 'main', 'wrquick_mac.py')
+          os.system(f"python3 {ch1_dir}")
+          os.system("clear")
+      elif choice==2:
+          ch2_dir = os.path.join(directory, 'main', 'webrep_mac.py')
+          os.system(f"python3 {ch2_dir}")
+          os.system("clear")
+      elif choice==0:
+          os.system("clear")
           return
       else:
           print("Invalid Input!\n")
