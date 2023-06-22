@@ -12,9 +12,9 @@
 ## Instructions ~
 1. git clone the repo
 2. run the following commands in the terminal:
-3. cd WebRep - <version>
-4. chmod +x ./webrep.py
-5. ./webrep.py
+3. ```cd WebRep - <version>```
+4. ```chmod +x ./webrep.py```
+5. ```./webrep.py```
 
 ## For Quick Mode
 1. Already inytegrated (No custom execution required) (FOR LINUX ONLY)
@@ -32,5 +32,5 @@
 
 ## MacOs Instructions
 1. git clone repo
-2. cd WebRep
-3. ./webrep.py
+2. ```cd WebRep```
+3. ```./webrep.py```
