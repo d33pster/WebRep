@@ -18,6 +18,7 @@ def main():
   print("Press Q to quit\n")
   url = input("Url: ")
   if(url.strip() == "Q" or url.strip() == "q"):
+      os.system("clear")
       return
   output_file_name = input("output file-name: ")
   req_t = requests.get(url)

@@ -23,12 +23,13 @@ def path_resolver(cwd):
 def main():
   global directory
   if(P == 'Linux'):
+    os.system("sudo clear")
     print("Press 1 for quick :: Press 2 for default :: Press 0 to exit")
     dec = int(input(":: "))
     if(dec == 1):
-        subprocess.call(['./main/wrquick_lin.py'])
+        os.system(f"python3 {os.path.join(directory, 'main', 'wrquick_lin.py')}")
     elif(dec == 2):
-        subprocess.call(['./main/webrep_lin.py'])
+        os.system(f"python3 {os.path.join(directory, 'main', 'webrep_lin.py')}")
     elif(dec == 0):
         return
     else:
