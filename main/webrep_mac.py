@@ -15,7 +15,6 @@ directory_outMain = os.path.dirname(directory) #getting dir after cd = /WebRep
 def reader(file_name):
     global directory_outMain
     file = open(os.path.join(directory_outMain, "output-files", file_name+".rep"), "r")
-    print("\n")
     print(file.read())
     file.close()
     code_choke = input("\n\n~ PRESS ENTER TO CONTINUE ~")
@@ -30,16 +29,18 @@ def fetch():
         url_file = input("Enter absolute file-path: ")
         output_file_name = input("Enter Output file-name: ")
         create_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "w")
+        create_output_file.close()
         urls = open(url_file, "r")
+        print("\n")
         for url in urls:
             url = url.strip()
-            create_output_file.write("Footprint of "+url+" Webserver: \n\n")
-            create_output_file.close()
+            load_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "a")
+            load_output_file.write("########### Footprint of "+url+" Webserver: \n\n")
+            load_output_file.close()
             req = requests.get(url)
             res = dict(req.headers)
-            print("Fetching Footprint(s) ... ")
+            print(f"Fetching Footprint(s) of {url} ...")
             time.sleep(3)
-            print("\n")
             print("Saving into /output-files/"+output_file_name+".rep ...")
             time.sleep(2)
             for item, value in res.items():
@@ -55,6 +56,9 @@ def fetch():
                 load_output_file.write(str(cookies[i]))
                 load_output_file.write("\n")
                 load_output_file.close()
+            load_output_file = open(os.path.join(directory_outMain, "output-files", output_file_name+".rep"), "a")
+            load_output_file.write("\n\n")
+            load_output_file.close()
     elif(decider == 0):
         url = input("Enter URL: ")
         output_file_name = input("Enter Output file-name: ")
@@ -93,12 +97,14 @@ def fetch_read(output_file_name):
     print("\n")
     decider = int(input("Press 1 to view Footprint :: press 0 to reconfigure: "))
     if(decider == 1):
+        os.system("clear")
         reader(output_file_name)
     elif(decider == 0):
         return
     return
             
 def driver():
+    os.system("clear")
     global directory_outMain, directory
     os.system('clear')
     os.chdir(directory_outMain)
@@ -119,7 +125,7 @@ def driver():
         time.sleep(2)
         driver()
     elif(decider == 2):
-        print("\nThe Output Directory has the following files: ")
+        print("\nThe Output Directory has the following files: \n")
         os.chdir(os.path.join(directory_outMain, 'output-files'))
         os.system("ls")
         os.chdir(directory)
@@ -137,6 +143,7 @@ def driver():
             time.sleep(2)
             driver()
     elif(decider == 0):
+        os.system("clear")
         return
     else:
         print("Input Error! ~ Custom Exit Code 1")

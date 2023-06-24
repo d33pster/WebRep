@@ -23,6 +23,7 @@ def path_resolver(cwd):
 def main():
   global directory
   if(P == 'Linux'):
+    os.system("clear")
     os.system("sudo clear")
     print("Press 1 for quick :: Press 2 for default :: Press 0 to exit")
     dec = int(input(":: "))

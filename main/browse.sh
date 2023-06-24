@@ -1,2 +1,2 @@
 #!/bin/sh
-ls -l ./output-files
+ls ./output-files
