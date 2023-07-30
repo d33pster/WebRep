@@ -9,7 +9,13 @@
 #### Windows
 3. ```python3 prep```
 4. ```python3 webrep-gui```
-#### Linux
+#### Linux and macOs
 3. ```./prep```
 4. ```./webrep-gui```
-
+## If GUI fails... try this
+#### Windows
+1. ```python3 prep```
+2. ```python3 webrep.py```
+#### Linux and macOs
+1. ```./prep```
+2. ```./webrep.py```
