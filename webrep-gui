@@ -1,0 +1,433 @@
+#!/usr/bin/env python3
+import os, platform
+from tkinter import *
+from tkinter import ttk
+
+import subprocess
+from time import sleep
+import requests
+from shutil import rmtree as rm
+
+class webrep:
+    def __init__(self, master):
+        
+        self.parent = master
+        self.notebook = ttk.Notebook(master) #notebook
+        self.notebook.pack(fill=BOTH, expand=True)
+        
+
+        self.frame1 = ttk.Frame(self.notebook) #frame 1 ~~ Quick
+        self.frame2 = ttk.Frame(self.notebook) #frame 2 ~~ BULK
+        self.frame3 = ttk.Frame(self.notebook) #frame 3 ~~ clean
+        self.notebook.add(self.frame1, text='Quick')
+        self.notebook.add(self.frame2, text='Bulk')
+        self.notebook.add(self.frame3, text='Clean')
+
+        #setup quick ~ frame 1
+        self.frame_inside0 = ttk.Frame(self.frame1)
+        self.frame_inside0.pack(fill=BOTH)
+        self.label1 = ttk.Label(self.frame_inside0, text='url: ')
+        self.label1.pack(side=LEFT) #grid(row=0, column=0)
+        self.url = ttk.Entry(self.frame_inside0, width=60)
+        self.url.pack(side=RIGHT) #grid(row=0, column=1)
+
+        self.frame_inside1 = ttk.Frame(self.frame1)
+        self.frame_inside1.pack(fill=BOTH)
+        self.label2 = ttk.Label(self.frame_inside1, text='output FileName: ')
+        self.label2.pack(side=LEFT, fill=X) #grid(row=5, column=2)
+        self.file_name = ttk.Entry(self.frame_inside1, width=60)
+        self.file_name.pack(side=RIGHT, fill=X) #grid(row=5, column=3)
+
+        self.frame_inside2 = ttk.Frame(self.frame1)
+        self.frame_inside2.pack(fill=BOTH)
+        for i in range(25):
+            ttk.Frame(self.frame_inside2, height=10, width=10).grid(row=0, column=i)
+        self.btn = ttk.Button(self.frame_inside2, text='[Diagnose]', command=self.diagnose)
+        self.btn.grid(row=0, column=25)
+        self.btnq = ttk.Button(self.frame_inside2, text='[Quit]', command=self.quit)
+        self.btnq.grid(row=0, column=26)
+
+        #setup Clean ~ frame 3
+        self.frame_inside6 = ttk.Frame(self.frame3)
+        self.frame_inside6.pack(fill=BOTH)
+        self.label3 = ttk.Label(self.frame_inside6, text='This will clean the output-files directory!!', justify=CENTER)
+        self.label3.pack()
+        self.frame_inside7 = ttk.Frame(self.frame3)
+        self.frame_inside7.pack(fill=BOTH)
+        self.btn5 = ttk.Button(self.frame_inside7, text='[Clean]', command=self.clean)
+        self.btn5.pack()
+
+        #setup Bulk ~ frame 2
+        self.frame2child1 = ttk.Frame(self.frame2)
+        self.frame2child1.pack(fill=BOTH)
+        self.fram2child1label = ttk.Label(self.frame2child1, text='URL FilePath: ')
+        self.frame2child1entry = ttk.Entry(self.frame2child1, width=60)
+        self.fram2child1label.pack(side=LEFT)
+        self.frame2child1entry.pack(side=RIGHT)
+        self.frame2child1_continue = ttk.Frame(self.frame2)
+        self.frame2child1_continue.pack(fill=BOTH)
+        self.frame2child1_continue_label = ttk.Label(self.frame2child1_continue, text='Output FileName: ')
+        self.frame2child1_continue_label.pack(side=LEFT)
+        self.frame2child1_continue_entry = ttk.Entry(self.frame2child1_continue, width=60)
+        self.frame2child1_continue_entry.pack(side=RIGHT)
+        self.frame2child2 = ttk.Frame(self.frame2)
+        self.frame2child2.pack(fill=BOTH)
+        for i in range(25):
+            ttk.Frame(self.frame2child2, height=10, width=10).grid(row=0, column=i)
+        self.btn_bulk = ttk.Button(self.frame2child2, text='[Diagnose]', command=self.diagnose_bulk)
+        self.btn_bulk.grid(row=0, column=25)
+        self.btnq = ttk.Button(self.frame2child2, text='[Quit]', command=self.quit)
+        self.btnq.grid(row=0, column=26)
+    
+    def diagnose_bulk(self):
+        self.frame2child2.pack_forget()
+        self.notebook.tab(0,state='disabled')
+        self.notebook.tab(2,state='disabled')
+        self.parent.update()
+
+        self.frame2child3 = ttk.Frame(self.frame2)
+        self.frame2child3.pack(fill=BOTH)
+        self.frame2child3label = ttk.Label(self.frame2child3, text='status: ')
+        self.frame2child3label.pack(side=LEFT)
+        self.frame2child3bar = ttk.Progressbar(self.frame2child3, orient=HORIZONTAL, length=365)
+        self.frame2child3bar.pack(side=RIGHT)
+        self.frame2child3bar.config(mode='determinate', maximum=10.0)
+        self.parent.update()
+
+        self.frame2child4 = ttk.Frame(self.frame2)
+        self.frame2child4.pack(fill=BOTH)
+        for i in range(25):
+            ttk.Frame(self.frame2child4, height=10, width=10).grid(row=0, column=i)
+        self.frame2child4btn1 = ttk.Button(self.frame2child4, text='[cancel]', command=self.cancel)
+        self.frame2child4btn1.grid(row=0, column=25)
+        self.frame2child4btn2 = ttk.Button(self.frame2child4, text='[quit]', command=self.quit)
+        self.frame2child4btn2.grid(row=0, column=26)
+        self.parent.update()
+
+        url_filepath = self.frame2child1entry.get()
+        output_filename = self.frame2child1_continue_entry.get()
+        
+        with open(url_filepath, 'r') as urls_:
+            for count,line in enumerate(urls_):
+                pass
+        count=count+1
+        urls = open(url_filepath, 'r')
+
+        currdir = os.path.dirname(os.path.abspath(__file__))
+        self.output_filepath_bulk = os.path.join(currdir, 'output-files', output_filename+".rep")
+
+        self.parent.update()
+        create = open(self.output_filepath_bulk, 'w')
+        create.close()
+        self.parent.update()
+
+        if count > 10 and count < 20:
+            step = 0.5
+        elif count > 10 and count < 100:
+            step = 0.1
+        elif count < 10:
+            step = 1
+        else:
+            step = 0.1
+
+        for url in urls:
+            url = url.strip()
+            with open(self.output_filepath_bulk, 'a') as output:
+                output.write("########### Footprint of "+url+" Webserver ###########\n\n")
+                req = requests.get(url)
+                res = dict(req.headers)
+                for item, value in res.items():
+                    output.write(item+" : "+value+"\n\n")
+                cookies = tuple(req.cookies)
+                output.write("\n\nCOOKIES:\n")
+                for i in range(len(cookies)):
+                    output.write(str(cookies[i])+"\n")
+                output.write("\n\n")
+            
+            self.frame2child3bar.step(step)
+            self.parent.update()
+        
+        # self.frame2child3.pack_forget()
+        self.frame2child3bar.config(value=9.99)
+        self.frame2child4.pack_forget()
+        self.parent.update()
+
+        #prep for output ~~~~~~~~ fixed
+        self.frame2child5 = ttk.Frame(self.frame2)
+        self.frame2child5.pack(fill=BOTH)
+        for i in range(25):
+            ttk.Frame(self.frame2child5, height=10, width=10).grid(row=0, column=i)
+        self.frame2child5btn1 = ttk.Button(self.frame2child5, text='[View Report]', command=self.rep_bulk)
+        self.frame2child5btn1.grid(row=0, column=25)
+        self.frame2child5btn2 = ttk.Button(self.frame2child5, text='[Re-Diagnose]', command=self.cancel)
+        self.frame2child5btn2.grid(row=0, column=26)
+        self.parent.update()
+
+        #enable other notebook tabs
+        self.notebook.tab(0, state='normal')
+        self.notebook.tab(2, state='normal')
+        self.parent.update()
+    
+    def callback(self):
+        if self.rad=='file':
+            self.frame_inside9 = ttk.Frame(self.frame2)
+            self.frame_inside9.pack(fill=BOTH)
+            self.label4 = ttk.Label(self.frame_inside9, text='URL file Location: ')
+            self.label4.pack(side=LEFT)
+            self.file = ttk.Entry(self.frame_inside9, width=60)
+            self.file.pack(side=RIGHT)
+        elif self.rad=='man':
+            self.notebook.select(self.frame1)
+            # self.parent.update()
+
+    def clean(self):
+        output = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output-files')
+        rm(output)
+        if not os.path.exists(output):
+            os.mkdir(output)
+        self.label3.config(text='Everything Cleaned.')
+        self.label3.after(1500, self.clean_prompt)
+
+    def clean_prompt(self):
+        self.label3.config(text='This will clean the output-files directory!!')
+
+    def diagnose(self):
+        #rem btn add progress bar
+        self.frame_inside2.pack_forget()
+        self.parent.update()
+        #lock other notebok tab
+        self.notebook.tab(1, state='disabled')
+        self.notebook.tab(2, state='disabled')
+        self.parent.update()
+
+        #add status
+        self.frame_inside3 = ttk.Frame(self.frame1)
+        self.frame_inside3.pack(fill=BOTH)
+        self.progress = ttk.Label(self.frame_inside3, text='status: ')
+        self.progress.pack(side=LEFT) #grid(row=7, column=2)
+        self.bar = ttk.Progressbar(self.frame_inside3, orient=HORIZONTAL, length=365)
+        self.bar.pack(side=RIGHT) #grid(row=7,column=3)
+        self.bar.config(mode='determinate', maximum=10.0)
+        self.parent.update()
+        #self.parent.update_idletasks()
+
+
+        #add cancel buttn
+        self.frame_inside4 = ttk.Frame(self.frame1)
+        self.frame_inside4.pack(fill=BOTH)
+        for i in range(25):
+            ttk.Frame(self.frame_inside4, height=10, width=10).grid(row=0, column=i)
+        self.btn2 = ttk.Button(self.frame_inside4, text='[Cancel]', command=self.cancel)
+        self.btn2.grid(row=0, column=25)
+        self.btnq = ttk.Button(self.frame_inside4, text='[Quit]', command=self.quit)
+        self.btnq.grid(row=0, column=26)
+        self.parent.update()
+        
+        #work
+        sleep(0.8)
+        self.bar.step(2)
+        self.parent.update()
+        url = self.url.get()
+        sleep(0.8)
+        self.bar.step(2)
+        self.parent.update()
+        req_t = requests.get(url)
+        req = dict(req_t.headers)
+
+        currdir = os.path.dirname(os.path.abspath(__file__))
+        output = os.path.join(currdir, 'output-files', self.file_name.get()+".rep")
+        
+        with open(output, 'w') as create:
+            self.bar.step(2)
+            self.parent.update()
+            create.write("Footprint of "+url+" Webserver: \n\n")
+            for item, value in req.items():
+                create.write(item+" : "+value+"\n\n")
+            cookies_t = requests.get(url).cookies
+            cookies = tuple(cookies_t)
+            self.bar.step(2)
+            self.parent.update()
+            create.write("\n\nCOOKIES: \n")
+            for i in range(len(cookies)):
+                create.write(str(cookies[i]))
+                create.write("\n")
+        
+        sleep(0.8)
+        self.bar.step(1.99)
+        self.parent.update()
+        #rem status bar and btns
+        #self.frame_inside3.pack_forget()
+        self.frame_inside4.pack_forget()
+        self.parent.update()
+
+        #prep for output ~~~~~~~~ fixed
+        self.frame_inside5 = ttk.Frame(self.frame1)
+        self.frame_inside5.pack(fill=BOTH)
+        for i in range(25):
+            ttk.Frame(self.frame_inside5, height=10, width=10).grid(row=0, column=i)
+        self.btn3 = ttk.Button(self.frame_inside5, text='[View Report]', command=self.rep)
+        self.btn3.grid(row=0, column=25)
+        self.btn4 = ttk.Button(self.frame_inside5, text='[Re-Diagnose]', command=self.cancel)
+        self.btn4.grid(row=0, column=26)
+        self.parent.update()
+
+        #enable other notebook tabs
+        self.notebook.tab(1, state='normal')
+        self.notebook.tab(2, state='normal')
+        self.parent.update()
+    
+    def rep(self):
+        self.frame_inside3.pack_forget()
+        self.frame_inside5.pack_forget()
+        self.frameRep = ttk.Frame(self.frame1)
+        self.frameRep.pack(fill=BOTH)
+        self.report = Text(self.frameRep)
+        self.report.pack(fill=BOTH)
+        currdir = os.path.dirname(os.path.abspath(__file__))
+        output = os.path.join(currdir, 'output-files', self.file_name.get()+".rep")
+        with open(output, 'r') as reptext:
+            lines=reptext.readlines()
+            reptext_str=''
+            for line in lines:
+                reptext_str = reptext_str + line
+            self.report.insert('end', reptext_str)
+            self.report.config(wrap='word',state='disabled')
+        self.frame_inside5.pack(fill=BOTH)
+        self.btn3.grid_forget()
+    
+    def rep_bulk(self):
+        self.frame2child3.pack_forget()
+        self.frame2child5.pack_forget()
+        self.frameRepBulk = ttk.Frame(self.frame2)
+        self.frameRepBulk.pack(fill=BOTH)
+        self.report_bulk = Text(self.frameRepBulk)
+        self.report_bulk.pack(fill=BOTH)
+        with open(self.output_filepath_bulk, 'r') as reptext:
+            lines = reptext.readlines()
+            reptext_str=''
+            for line in lines:
+                reptext_str=reptext_str+line
+            self.report_bulk.insert('end',reptext_str)
+            self.report_bulk.config(wrap='word', state='disabled')
+        self.frame2child5.pack(fill=BOTH)
+        self.frame2child5btn1.grid_forget()
+    
+    def cancel(self):
+        self.frame3.destroy()
+        self.frame2.destroy()
+        self.frame1.destroy()
+
+        self.frame1 = ttk.Frame(self.notebook) #frame 1 ~ Quick
+        self.frame2 = ttk.Frame(self.notebook) #frame 2 ~ Bulk
+        self.frame3 = ttk.Frame(self.notebook) #frame 3 ~ Clean
+        self.notebook.add(self.frame1, text='Quick')
+        self.notebook.add(self.frame2, text='Bulk')
+        self.notebook.add(self.frame3, text='Clean')
+
+        #setup quick ~ frame 
+        self.frame_inside0 = ttk.Frame(self.frame1)
+        self.frame_inside0.pack(fill=BOTH)
+        self.label1 = ttk.Label(self.frame_inside0, text='url: ')
+        self.label1.pack(side=LEFT) #grid(row=4, column=2)
+        self.url = ttk.Entry(self.frame_inside0, width=60)
+        self.url.pack(side=RIGHT) #grid(row=4, column=3)
+        
+        self.frame_inside1 = ttk.Frame(self.frame1)
+        self.frame_inside1.pack(fill=BOTH)
+        self.label2 = ttk.Label(self.frame_inside1, text='output file-name: ')
+        self.label2.pack(side=LEFT) #grid(row=5, column=2)
+        self.file_name = ttk.Entry(self.frame_inside1, width=60)
+        self.file_name.pack(side=RIGHT) #grid(row=5, column=3)
+
+        self.frame_inside2 = ttk.Frame(self.frame1)
+        self.frame_inside2.pack(fill=BOTH)
+        for i in range(30):
+            ttk.Frame(self.frame_inside2, height=10, width=10).grid(row=0, column=i)
+        self.btn = ttk.Button(self.frame_inside2, text='[Diagnose]', command=self.diagnose)
+        self.btn.grid(row=0, column=30)
+        self.btnq = ttk.Button(self.frame_inside2, text='[Quit]', command=self.quit)
+        self.btnq.grid(row=0, column=32)
+
+        #setup Clean ~ frame 3
+        self.frame_inside6 = ttk.Frame(self.frame3)
+        self.frame_inside6.pack(fill=BOTH)
+        self.label3 = ttk.Label(self.frame_inside6, text='This will clean the output-files directory!!', justify=CENTER)
+        self.label3.pack()
+        self.frame_inside7 = ttk.Frame(self.frame3)
+        self.frame_inside7.pack(fill=BOTH)
+        self.btn5 = ttk.Button(self.frame_inside7, text='[Clean]', command=self.clean)
+        self.btn5.pack()
+
+        #setup Bulk ~ frame 2
+        self.frame2child1 = ttk.Frame(self.frame2)
+        self.frame2child1.pack(fill=BOTH)
+        self.fram2child1label = ttk.Label(self.frame2child1, text='URL File Path: ')
+        self.frame2child1entry = ttk.Entry(self.frame2child1, width=60)
+        self.fram2child1label.pack(side=LEFT)
+        self.frame2child1entry.pack(side=RIGHT)
+        self.frame2child1_continue = ttk.Frame(self.frame2)
+        self.frame2child1_continue.pack(fill=BOTH)
+        self.frame2child1_continue_label = ttk.Label(self.frame2child1_continue, text='Output FileName: ')
+        self.frame2child1_continue_label.pack(side=LEFT)
+        self.frame2child1_continue_entry = ttk.Entry(self.frame2child1_continue, width=60)
+        self.frame2child1_continue_entry.pack(side=RIGHT)
+        self.frame2child2 = ttk.Frame(self.frame2)
+        self.frame2child2.pack(fill=BOTH)
+        for i in range(25):
+            ttk.Frame(self.frame2child2, height=10, width=10).grid(row=0, column=i)
+        self.btn_bulk = ttk.Button(self.frame2child2, text='[Diagnose]', command=self.diagnose_bulk)
+        self.btn_bulk.grid(row=0, column=25)
+        self.btnq = ttk.Button(self.frame2child2, text='[Quit]', command=self.quit)
+        self.btnq.grid(row=0, column=26)
+    
+    def quit(self):
+        if platform.system()=='Windows':
+            os.system("cls")
+        elif platform.system()=='Linux' or platform.system()=='Darwin':
+            os.system("clear")
+        else:
+            print("this OS not supported.")
+            exit()
+        
+        print("Quitting ...")
+        sleep(1)
+
+        if platform.system()=='Windows':
+            os.system("cls")
+        elif platform.system()=='Linux' or platform.system()=='Darwin':
+            os.system("clear")
+        else:
+            print("this OS not supported.")
+            exit()
+
+        exit()
+
+
+
+def main():
+    currdir = os.path.dirname(os.path.abspath(__file__))
+    #maindir = os.path.join(currdir, 'main')
+
+    if not os.path.exists(os.path.join(currdir, 'output-files')):
+        os.mkdir(os.path.join(currdir, 'output-files'))
+
+
+    if platform.system()=='Windows':
+        os.system("cls")
+    elif platform.system()=='Linux' or platform.system()=='Darwin':
+        os.system("clear")
+    else:
+        print("this OS not supported.")
+        exit()
+
+    print("Running WebRep-GUI ...")
+    sleep(0.5)
+
+    root = Tk()
+    root.title("WebRep")
+    # root.resizable(False,False)
+    app=webrep(root)
+    root.mainloop()
+
+
+if __name__=='__main__':main()
