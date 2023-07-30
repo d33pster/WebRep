@@ -3,7 +3,7 @@ import os, platform
 from tkinter import *
 from tkinter import ttk
 
-import subprocess
+import sys
 from time import sleep
 import requests
 from shutil import rmtree as rm
@@ -387,7 +387,7 @@ class webrep:
             os.system("clear")
         else:
             print("this OS not supported.")
-            exit()
+            sys.exit()
         
         print("Quitting ...")
         sleep(1)
@@ -398,9 +398,9 @@ class webrep:
             os.system("clear")
         else:
             print("this OS not supported.")
-            exit()
+            sys.exit()
 
-        exit()
+        sys.exit()
 
 
 

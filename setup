@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+import os, platform, sys
+from pyshortcuts import make_shortcut
+
+direct = os.path.dirname(os.path.abspath(__file__))
+
+if platform.system()=='Windows':
+    make_shortcut(os.path.join(direct, 'webrep-gui'), name='WebRep', description='WebRep ~ A footprint tool written in python.', working_dir=direct)
+elif platform.system()=='Linux' or platform.system()=='Darwin':
+    make_shortcut(os.path.join(direct, 'webrep-gui'), name='WebRep', description='WebRep ~ A footprint tool written in python.', working_dir=direct)
+else:
+    sys.exit()

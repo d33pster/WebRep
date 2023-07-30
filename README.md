@@ -7,11 +7,11 @@
 1. git clone the repo ```https://github.com/d33pster/WebRep.git```
 2. ```cd WebRep```
 #### Windows
-3. ```python3 prep```
-4. ```python3 webrep-gui```
+3. ```python prep```
+4. ```python setup```
 #### Linux and macOs
 3. ```./prep```
-4. ```./webrep-gui```
+4. ```./setup```
 ## If GUI fails... try this
 #### Windows
 1. ```python3 prep```

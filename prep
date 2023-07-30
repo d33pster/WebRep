@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-os.system("pip install requests tk simple-colors")
+os.system("pip install requests tk simple-colors pyshortcuts")
 currdir = os.path.dirname(os.path.abspath(__file__))
 output_dir = os.path.join(currdir, 'output-files')
 if not os.path.exists(output_dir):
