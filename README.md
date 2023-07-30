@@ -9,3 +9,7 @@
 #### Windows
 3. ```python3 prep```
 4. ```python3 webrep-gui```
+#### Linux
+3. ```./prep```
+4. ```./webrep-gui```
+
